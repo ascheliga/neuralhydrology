@@ -4,9 +4,9 @@
 experiment_name: test_run
 
 # files to specify training, validation and test basins (relative to code root or absolute path)
-train_basin_file: 1_basin.txt
-validation_basin_file: 1_basin.txt
-test_basin_file: 1_basin.txt
+train_basin_file: examples/01-Introduction/1_basin.txt
+validation_basin_file: examples/01-Introduction/1_basin.txt
+test_basin_file: examples/01-Introduction/1_basin.txt
 
 # training, validation and test time periods (format = 'dd/mm/yyyy')
 train_start_date: "01/10/1999"
@@ -17,7 +17,7 @@ test_start_date: "01/10/1989"
 test_end_date: "30/09/1999"
 
 # which GPU (id) to use [in format of cuda:0, cuda:1 etc, or cpu, mps or None]
-device: cuda:0
+device: cpu
 
 # --- Validation configuration ---------------------------------------------------------------------
 
@@ -108,7 +108,7 @@ save_weights_every: 1
 dataset: camels_us
 
 # Path to data set root
-data_dir: ../../data/CAMELS_US
+data_dir: data/CAMELS_US
 
 # Forcing product [daymet, maurer, maurer_extended, nldas, nldas_extended, nldas_hourly]
 # can be either a list of forcings or a single forcing product
