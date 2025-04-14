@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH --job-name=run_nh_test_attempt2
+#SBATCH --job-name=run_nh_test_attempt5
 #SBATCH --account=fc_ecohydrology
-#SBATCH --partition=savio3_htc
-#SBATCH --time=00:10:15
+#SBATCH --partition=savio2_htc
+#SBATCH --time=00:05:15
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=2
 
