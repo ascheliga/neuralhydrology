@@ -1,7 +1,7 @@
 # --- Experiment configurations --------------------------------------------------------------------
 
 # experiment name, used as folder name
-experiment_name: run_via_notebook
+experiment_name: notebook_two_var_only
 
 # Full or relative path to where the run directory is stored (if empty runs are stored in ${current_working_dir}/runs/)
 run_dir: /global/home/users/ann_scheliga/neuralhydrology/runs/
@@ -113,21 +113,24 @@ dataset: camels_us
 # Path to data set root
 data_dir: /global/home/users/ann_scheliga/neuralhydrology/data/CAMELS_US
 
+additional_feature_files: /global/scratch/users/ann_scheliga/CYGNSS_daily/time_series/trial_df.pkl
+
 # Forcing product [daymet, maurer, maurer_extended, nldas, nldas_extended, nldas_hourly]
 # can be either a list of forcings or a single forcing product
 forcings:
-  - maurer
-  - daymet
+  # - maurer
+  # - daymet
   - nldas
 
 dynamic_inputs:
-  - PRCP(mm/day)_nldas
-  - PRCP(mm/day)_maurer
-  - prcp(mm/day)_daymet
-  - srad(W/m2)_daymet
-  - tmax(C)_daymet
-  - tmin(C)_daymet
-  - vp(Pa)_daymet
+  - PRCP(mm/day) #_nldas
+  # - PRCP(mm/day)_maurer
+  # - prcp(mm/day)_daymet
+  # - srad(W/m2)_daymet
+  # - tmax(C)_daymet
+  # - tmin(C)_daymet
+  # - vp(Pa)_daymet
+  - var_0
 
 # Which CAMELS attributes to use. Leave empty if none should be used
 #static_attributes:
