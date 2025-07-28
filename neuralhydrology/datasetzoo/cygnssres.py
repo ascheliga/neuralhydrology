@@ -176,16 +176,16 @@ def load_timeseries(data_dir: Path, basin: str) -> pd.DataFrame:
     ValueError
         If more than one netCDF file is found for the specified basin.
     """
-    files_dir = data_dir / "time_series"
-    # netcdf_files = list(files_dir.glob("*.nc4"))
-    # netcdf_files.extend(files_dir.glob("*.nc"))
-    # netcdf_file = [f for f in netcdf_files if f.stem == basin]
-    # if len(netcdf_file) == 0:
-    #     raise FileNotFoundError(f"No netCDF file found for basin {basin} in {files_dir}")
-    # if len(netcdf_file) > 1:
-    #     raise ValueError(f"Multiple netCDF files found for basin {basin} in {files_dir}")
+    files_dir = data_dir #/ "time_series"
+    netcdf_files = list(files_dir.glob("*.pkl"))
+    netcdf_files.extend(files_dir.glob("*.nc"))
+    basin_file = [f for f in netcdf_files if f.stem == str(basin)]
+    if len(basin_file) == 0:
+        raise FileNotFoundError(f"No file found for basin {basin} in {files_dir}")
+    if len(basin_file) > 1:
+        raise ValueError(f"Multiple files found for basin {basin} in {files_dir}")
 
     # xr = xarray.open_dataset(netcdf_file[0])
     # return xr.to_dataframe()
-    pck_read = pickle.load(open(files_dir/'from_codebase_df.pkl', 'rb'))
-    return pck_read[basin]
+    pck_read = pickle.load(open(files_dir/basin_file[0], 'rb'))
+    return pck_read[int(basin)]
