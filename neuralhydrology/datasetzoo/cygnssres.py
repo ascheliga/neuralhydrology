@@ -2,6 +2,7 @@ from functools import reduce
 from pathlib import Path
 from typing import Dict, List, Union
 
+import os
 import pickle
 import numpy as np
 import pandas as pd
@@ -69,7 +70,7 @@ class CYGNSSres(BaseDataset):
 
     def _load_basin_data(self, basin: str) -> pd.DataFrame:
         """Load input and output data. """
-        df = load_timeseries(data_dir=self.cfg.data_dir, basin=basin)
+        df = load_timeseries(data_dir=self.cfg.data_dir, basin=basin,dam_name=self.cfg.dam_name)
 
         return df
 
@@ -153,7 +154,7 @@ def load_attributes(data_dir: Path, basins: List[str] = None) -> pd.DataFrame:
     return df
 
 
-def load_timeseries(data_dir: Path, basin: str) -> pd.DataFrame:
+def load_timeseries(data_dir: Path, basin: str,dam_name: str) -> pd.DataFrame:
     """Load time series data from netCDF files into pandas DataFrame.
 
     Parameters
@@ -177,9 +178,10 @@ def load_timeseries(data_dir: Path, basin: str) -> pd.DataFrame:
         If more than one netCDF file is found for the specified basin.
     """
     files_dir = data_dir #/ "time_series"
+    dam_name = dam_name.replace(" ", "_")
     netcdf_files = list(files_dir.glob("*.pkl"))
     netcdf_files.extend(files_dir.glob("*.nc"))
-    basin_file = [f for f in netcdf_files if f.stem == str(basin)]
+    basin_file = [f for f in netcdf_files if f.stem == (str(basin)+'_'+dam_name)]
     if len(basin_file) == 0:
         raise FileNotFoundError(f"No file found for basin {basin} in {files_dir}")
     if len(basin_file) > 1:

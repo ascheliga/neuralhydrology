@@ -269,6 +269,10 @@ class Config(object):
         return self._cfg.get("allow_subsequent_nan_losses", 0)
 
     @property
+    def dam_name(self) -> int:
+        return self._cfg.get("dam_name", '')
+
+    @property
     def autoregressive_inputs(self) -> Union[List[str], Dict[str, List[str]]]:
         return self._as_default_list(self._cfg.get("autoregressive_inputs", []))
 
