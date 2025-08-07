@@ -1,0 +1,14 @@
+grdc_id: 4152050
+grdc_sub_ids: ## MUST BE ORDERED DOWNSTREAM (first) TO UPSTREAM (last)
+  - 4152103
+  - 4152450
+  - 4152600
+dam_name: "glen_canyon"
+start_year: 2018
+stop_year_ex: 2024
+basin_str: "colorado"
+
+grdc_dir: "/global/scratch/users/ann_scheliga/aux_dam_datasets/GRDC_CRB/"
+met_dir: "/global/scratch/users/ann_scheliga/era5_data/"
+res_dir: "/global/scratch/users/ann_scheliga/CYGNSS_daily/time_series/"
+basin_data_dir: "/global/scratch/users/ann_scheliga/basin_forcing_processed/"
