@@ -1,16 +1,16 @@
 # --- Experiment configurations --------------------------------------------------------------------
 
 # experiment name, used as folder name
-experiment_name: EXP_1basin_cbr_with_sw
-dam_name: glen_canyon
+experiment_name: EXP00_1basin_niger_wi_sw
+dam_name: kainji
 
 # Full or relative path to where the run directory is stored (if empty runs are stored in ${current_working_dir}/runs/)
 run_dir: /global/home/users/ann_scheliga/neuralhydrology/runs/
 
 # files to specify training, validation and test basins (relative to code root or absolute path)
-train_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP00_1basin_sw/1_grdc.txt
-validation_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP00_1basin_sw/1_grdc.txt
-test_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP00_1basin_sw/1_grdc.txt
+train_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP00_1basin_sw/niger.txt
+validation_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP00_1basin_sw/niger.txt
+test_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP00_1basin_sw/niger.txt
 
 # training, validation and test time periods (format = 'dd/mm/yyyy')
 train_start_date: "01/01/2019"
