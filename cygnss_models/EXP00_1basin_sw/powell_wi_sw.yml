@@ -1,8 +1,8 @@
 # --- Experiment configurations --------------------------------------------------------------------
 
 # experiment name, used as folder name
-experiment_name: EXP00_1basin_niger_wi_sw
-dam_name: kainji
+experiment_name: EXP00_1basin_cbr_wi_sw
+dam_name: glen canyon
 
 # Full or relative path to where the run directory is stored (if empty runs are stored in ${current_working_dir}/runs/)
 run_dir: /global/home/users/ann_scheliga/neuralhydrology/runs/
@@ -132,6 +132,7 @@ dynamic_inputs:
   # - tmin(C)_daymet
   # - vp(Pa)_daymet
     - SW_area
+    - SW_flag
     - tempK_tot0
     - precipm_tot0
 

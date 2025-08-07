@@ -7,14 +7,6 @@
 #SBATCH --ntasks-per-node=2
 
 
-
-eval "$(conda shell.bash hook)"
-conda activate rioxarray_env
-
-# pre-processing
-python LSTM_preprocessing.py
-
-
 conda activate neuralhydrology
 
 nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP00_1basin_sw/1basin_wi_sw.yml
