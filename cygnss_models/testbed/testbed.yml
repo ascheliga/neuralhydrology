@@ -1,0 +1,8 @@
+grdc_id: 1834101
+grdc_sub_ids:
+  - 1834110
+ # [4152450,4152600] ## MUST BE ORDERED DOWNSTREAM (first) TO UPSTREAM (last)
+dam_name: "kainji"
+start_year: 2018
+stop_year_ex: 2024
+basin_str: "niger"
