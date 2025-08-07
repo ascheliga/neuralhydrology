@@ -1,0 +1,68 @@
+from pandas import DataFrame
+from pathlib import Path
+import pickle
+from neuralhydrology.nh_run import eval_run
+from neuralhydrology.evaluation import comp_plots
+from matplotlib import pyplot as plt
+
+
+def quick_eval(fp_wi_sw, fp_no_sw, run_dir, basin_key="") -> DataFrame:
+    sw_run_dir = Path(run_dir, fp_wi_sw)
+    nosw_run_dir = Path(run_dir, fp_no_sw)
+
+    print(sw_run_dir)
+    eval_run(run_dir=sw_run_dir, period="test")
+    eval_run(run_dir=sw_run_dir, period="train")
+    eval_run(run_dir=sw_run_dir, period="validation")
+    print("Evaluation complete of", sw_run_dir)
+
+    print(nosw_run_dir)
+    eval_run(run_dir=nosw_run_dir, period="test")
+    eval_run(run_dir=nosw_run_dir, period="train")
+    eval_run(run_dir=nosw_run_dir, period="validation")
+    print("Evaluation complete of", nosw_run_dir)
+
+    with open(sw_run_dir / "train" / "model_epoch050" / "train_results.p", "rb") as fp:
+        sw_train_results = pickle.load(fp)
+        print(sw_train_results.keys())
+
+    with open(
+        nosw_run_dir / "train" / "model_epoch050" / "train_results.p", "rb"
+    ) as fp:
+        nosw_train_results = pickle.load(fp)
+        print(nosw_train_results.keys())
+
+    with open(sw_run_dir / "test" / "model_epoch050" / "test_results.p", "rb") as fp:
+        sw_test_results = pickle.load(fp)
+        print(sw_test_results.keys())
+
+    with open(nosw_run_dir / "test" / "model_epoch050" / "test_results.p", "rb") as fp:
+        nosw_test_results = pickle.load(fp)
+        print(nosw_test_results.keys())
+
+    print("Loaded model results")
+
+    if len(basin_key) < 1:
+        basin_key = list(sw_test_results.keys())[0]
+        print("Plotting basin_key", basin_key)
+
+    fig, axs = plt.subplots(2, 2, figsize=(16, 10))
+
+    value_dict = {}
+
+    value_dict["SW train"] = comp_plots.plot_obs_sim_timeseries(
+        axs[0, 0], sw_train_results[basin_key]["1D"], "SW train"
+    )
+    value_dict["SW test"] = comp_plots.plot_obs_sim_timeseries(
+        axs[0, 1], sw_test_results[basin_key]["1D"], "SW test"
+    )
+    value_dict["No SW train"] = comp_plots.plot_obs_sim_timeseries(
+        axs[1, 0], nosw_train_results[basin_key]["1D"], "No SW train"
+    )
+    value_dict["No SW test"] = comp_plots.plot_obs_sim_timeseries(
+        axs[1, 1], nosw_test_results[basin_key]["1D"], "No SW test"
+    )
+
+    metrics_df = DataFrame(value_dict)
+
+    return metrics_df
