@@ -4,7 +4,7 @@ grdc_sub_ids: ## MUST BE ORDERED DOWNSTREAM (first) TO UPSTREAM (last)
   - 4152450
   - 4152600
 dam_name: "glen_canyon"
-start_year: 2018
+start_year: 2010
 stop_year_ex: 2024
 basin_str: "colorado"
 
