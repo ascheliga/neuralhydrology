@@ -1,7 +1,7 @@
 # --- Experiment configurations --------------------------------------------------------------------
 
 # experiment name, used as folder name
-experiment_name: EXP02_cbrfull_powell_no_sw_transfer_1yrtr_2yrval
+experiment_name: EXP02_cbrfull_powell_no_sw_transfer_2yrtr_1yrval
 dam_name: glen canyon
 
 # Full or relative path to where the run directory is stored (if empty runs are stored in ${current_working_dir}/runs/)
