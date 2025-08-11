@@ -1,9 +1,9 @@
 from codebase import ml_pipeline
 from pathlib import Path
-
+import os
 import yaml
 
-yml_path = Path("niger_basin.yml")
+yml_path = Path(os.environ["yml_file"])
 
 with yml_path.open("r") as f:
     exp_setup = yaml.safe_load(f)
@@ -21,8 +21,3 @@ output_df = ml_pipeline.LSTM_preprocessing_nh(
     res_dir=exp_setup["res_dir"],
     basin_data_dir=exp_setup["basin_data_dir"],
 )
-
-print("------- DESCRIPTION -------", flush=True)
-print(output_df.describe(), flush=True)
-print("------- SHAPE -------", flush=True)
-print(output_df.shape, flush=True)

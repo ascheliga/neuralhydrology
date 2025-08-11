@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=debugging_att02
+#SBATCH --job-name=crb2000_att00
 #SBATCH --account=fc_ecohydrology
 #SBATCH --partition=savio2_htc
 #SBATCH --time=00:20:15
@@ -11,5 +11,10 @@
 eval "$(conda shell.bash hook)"
 conda activate rioxarray_env
 
-# pre-processing
+export yml_file='colorado_full_basin.yml'
+
+# pre-processing into DataFrame
 python LSTM_preprocessing.py
+
+# plotting info
+python eda_preprocessing.py
