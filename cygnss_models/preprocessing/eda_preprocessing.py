@@ -25,60 +25,6 @@ print("Save dir:", save_fp, flush=True)
 
 fn = "_".join([grdc_id, dam_name]) + ".pkl"
 
-# LOAD DATA
-full_dict = pd.read_pickle(Path(fp) / fn)
-full_df = full_dict[list(full_dict.keys())[0]]
-
-precip_cols = full_df.columns[full_df.columns.str.contains("precip")]
-tempK_cols = full_df.columns[full_df.columns.str.contains("tempK")]
-
-## STREAMFLOW
-fig = plt.Figure()
-ax = full_df["Q"].plot()
-ax.set_ylabel("Flow (m$^3$/s)")
-ax.set_title(f"Streamflow at {grdc_id}")
-output_name = f"flow_{grdc_id}.png"
-plt.savefig(save_fp / output_name)
-plt.close()
-
-
-## SW area
-fig = plt.Figure()
-ax1 = full_df["SW_area"].plot()
-ax1.set_ylabel("SW area (sq. km$^2$)")
-ax1.set_title(f"Surface area of {dam_name.capitalize()}")
-output_name = f"SWarea_{dam_name}_full.png"
-plt.savefig(save_fp / output_name)
-plt.close()
-
-fig = plt.Figure()
-ax = full_df["SW_area"].dropna().plot()
-ax.set_ylabel("SW area (sq. km$^2$)")
-ax.set_title(f"Surface area of {dam_name.capitalize()}")
-output_name = f"SWarea_{dam_name}_zoom.png"
-plt.savefig(save_fp / output_name)
-plt.close()
-
-
-## EACH MET VAR
-
-
-def plot_single_timeseries_with_colname(input_column):
-    plt.Figure()
-    ax = input_column.plot()
-    var_name = input_column.name
-    ax.set_title(var_name)
-
-
-for col in full_df.iloc[:, 3:]:
-    ax = plot_single_timeseries_with_colname(full_df[col])
-    output_name = f"{col}_ts.png"
-    plt.savefig(save_fp / output_name)
-    plt.close()
-
-
-## MET MULTI-PLOTS
-
 
 def calc_seasonality(input_df):
     daily_seasonality = input_df.groupby(input_df.index.day_of_year).mean()
@@ -112,6 +58,70 @@ def calc_seasonality(input_df):
     ax4 = plt.subplot(3, 1, 3)
     input_df.plot(ax=ax4, **plt_kwargs, legend=False, title="Full time series")
 
+
+def plot_single_timeseries_with_colname(input_column):
+    plt.Figure()
+    ax = input_column.plot()
+    var_name = input_column.name
+    ax.set_title(var_name)
+
+
+# LOAD DATA
+full_dict = pd.read_pickle(Path(fp) / fn)
+full_df = full_dict[list(full_dict.keys())[0]]
+
+precip_cols = full_df.columns[full_df.columns.str.contains("precip")]
+tempK_cols = full_df.columns[full_df.columns.str.contains("tempK")]
+
+## STREAMFLOW
+fig = plt.Figure()
+ax = full_df["Q"].plot()
+ax.set_ylabel("Flow (m$^3$/s)")
+ax.set_title(f"Streamflow at {grdc_id}")
+output_name = f"flow_{grdc_id}.png"
+plt.savefig(save_fp / output_name)
+plt.close()
+
+calc_seasonality(full_df["Q"])
+output_name = "flow_decomp.png"
+plt.savefig(save_fp / output_name)
+plt.close()
+
+
+## SW area
+fig = plt.Figure()
+ax1 = full_df["SW_area"].plot()
+ax1.set_ylabel("SW area (sq. km$^2$)")
+ax1.set_title(f"Surface area of {dam_name.capitalize()}")
+output_name = f"SWarea_{dam_name}_full.png"
+plt.savefig(save_fp / output_name)
+plt.close()
+
+fig = plt.Figure()
+ax = full_df["SW_area"].dropna().plot()
+ax.set_ylabel("SW area (sq. km$^2$)")
+ax.set_title(f"Surface area of {dam_name.capitalize()}")
+output_name = f"SWarea_{dam_name}_zoom.png"
+plt.savefig(save_fp / output_name)
+plt.close()
+
+
+calc_seasonality(full_df["SW_area"].dropna())
+output_name = "SW_area_decomp.png"
+plt.savefig(save_fp / output_name)
+plt.close()
+
+
+## EACH MET VAR
+
+for col in full_df.iloc[:, 3:]:
+    ax = plot_single_timeseries_with_colname(full_df[col])
+    output_name = f"{col}_ts.png"
+    plt.savefig(save_fp / output_name)
+    plt.close()
+
+
+## MET MULTI-PLOTS
 
 calc_seasonality(full_df[precip_cols])
 output_name = "precip_overlays.png"
