@@ -1,12 +1,12 @@
 from pathlib import Path
-
+from datetime import datetime
 import matplotlib.pyplot as plt
 import pandas as pd
 import os
 
 import yaml
 
-
+print("START EDA PLOTS:", datetime.now())
 yml_path = Path(os.environ["yml_file"])
 
 with yml_path.open("r") as f:
@@ -14,15 +14,15 @@ with yml_path.open("r") as f:
 
 
 grdc_id = exp_setup["grdc_id"]
+grdc_id = str(grdc_id)
 dam_name = exp_setup["dam_name"]
+dam_name = dam_name.replace(" ", "_").lower()
 fp = exp_setup["basin_data_dir"]
 
 save_fp = Path(fp) / Path("_".join(["img_log", grdc_id, dam_name]))
 save_fp.mkdir(exist_ok=True)
 print("Save dir:", save_fp, flush=True)
 
-grdc_id = str(grdc_id)
-dam_name = dam_name.replace(" ", "_").lower()
 fn = "_".join([grdc_id, dam_name]) + ".pkl"
 
 # LOAD DATA
@@ -33,44 +33,48 @@ precip_cols = full_df.columns[full_df.columns.str.contains("precip")]
 tempK_cols = full_df.columns[full_df.columns.str.contains("tempK")]
 
 ## STREAMFLOW
+fig = plt.Figure()
 ax = full_df["Q"].plot()
 ax.set_ylabel("Flow (m$^3$/s)")
 ax.set_title(f"Streamflow at {grdc_id}")
 output_name = f"flow_{grdc_id}.png"
 plt.savefig(save_fp / output_name)
-plt.show()
+plt.close()
 
 
 ## SW area
-ax = full_df["SW_area"].plot()
-ax.set_ylabel("SW area (sq. km$^2$)")
-ax.set_title(f"Surface area of {dam_name.capitalize()}")
+fig = plt.Figure()
+ax1 = full_df["SW_area"].plot()
+ax1.set_ylabel("SW area (sq. km$^2$)")
+ax1.set_title(f"Surface area of {dam_name.capitalize()}")
 output_name = f"SWarea_{dam_name}_full.png"
 plt.savefig(save_fp / output_name)
-plt.show()
+plt.close()
 
+fig = plt.Figure()
 ax = full_df["SW_area"].dropna().plot()
 ax.set_ylabel("SW area (sq. km$^2$)")
 ax.set_title(f"Surface area of {dam_name.capitalize()}")
 output_name = f"SWarea_{dam_name}_zoom.png"
 plt.savefig(save_fp / output_name)
-plt.show()
+plt.close()
 
 
 ## EACH MET VAR
 
 
 def plot_single_timeseries_with_colname(input_column):
+    plt.Figure()
     ax = input_column.plot()
     var_name = input_column.name
     ax.set_title(var_name)
-    plt.show()
 
 
 for col in full_df.iloc[:, 3:]:
-    plot_single_timeseries_with_colname(full_df[col])
+    ax = plot_single_timeseries_with_colname(full_df[col])
     output_name = f"{col}_ts.png"
     plt.savefig(save_fp / output_name)
+    plt.close()
 
 
 ## MET MULTI-PLOTS
@@ -112,19 +116,20 @@ def calc_seasonality(input_df):
 calc_seasonality(full_df[precip_cols])
 output_name = "precip_overlays.png"
 plt.savefig(save_fp / output_name)
-plt.show()
+plt.close()
 
 calc_seasonality(full_df[tempK_cols])
 output_name = "tempK_overlays.png"
 plt.savefig(save_fp / output_name)
-plt.show()
+plt.close()
 
 
 percentile_df = full_df.describe()
-precentile_df.to_csv(save_fp/"percentiles.csv")
+percentile_df.to_csv(save_fp / "percentiles.csv")
 
 
 print("------- DESCRIPTION -------", flush=True)
 print(percentile_df, flush=True)
 print("------- SHAPE -------", flush=True)
 print(full_df.shape, flush=True)
+print("END EDA PLOTS:", datetime.now())

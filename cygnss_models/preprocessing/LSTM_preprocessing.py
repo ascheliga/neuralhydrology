@@ -1,8 +1,10 @@
 from codebase import ml_pipeline
 from pathlib import Path
+from datetime import datetime
 import os
 import yaml
 
+print("START LSTM PRE-PROCESSING:", datetime.now())
 yml_path = Path(os.environ["yml_file"])
 
 with yml_path.open("r") as f:
@@ -21,3 +23,5 @@ output_df = ml_pipeline.LSTM_preprocessing_nh(
     res_dir=exp_setup["res_dir"],
     basin_data_dir=exp_setup["basin_data_dir"],
 )
+
+print("END LSTM PRE-PROCESSING:", datetime.now())
