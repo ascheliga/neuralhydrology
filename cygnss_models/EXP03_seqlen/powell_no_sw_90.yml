@@ -8,9 +8,9 @@ dam_name: glen canyon
 run_dir: /global/home/users/ann_scheliga/neuralhydrology/runs/
 
 # files to specify training, validation and test basins (relative to code root or absolute path)
-train_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP02_transfer/crb.txt
-validation_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP02_transfer/crb.txt
-test_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP02_transfer/crb.txt
+train_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP03_seqlen/crb.txt
+validation_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP03_seqlen/crb.txt
+test_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP03_seqlen/crb.txt
 
 # training, validation and test time periods (format = 'dd/mm/yyyy')
 train_start_date: "01/01/2019"
