@@ -1,7 +1,7 @@
 # --- Experiment configurations --------------------------------------------------------------------
 
 # experiment name, used as folder name
-experiment_name: EXP04_general_wi_sw
+experiment_name: EXP04_general_no_sw_tot0
 
 dam_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP04_general/dam_basin_pair.json
 
@@ -132,8 +132,8 @@ dynamic_inputs:
   # - tmax(C)_daymet
   # - tmin(C)_daymet
   # - vp(Pa)_daymet
-    - SW_area
-    - SW_flag
+    # - SW_area
+    # - SW_flag
     - tempK_tot0
     - precipm_tot0
 
