@@ -273,6 +273,10 @@ class Config(object):
         return self._cfg.get("dam_name", '')
 
     @property
+    def dam_basin_file(self) -> Path:
+        return self._cfg.get("dam_basin_file",None)
+
+    @property
     def autoregressive_inputs(self) -> Union[List[str], Dict[str, List[str]]]:
         return self._as_default_list(self._cfg.get("autoregressive_inputs", []))
 

@@ -6,6 +6,7 @@ import pickle
 import numpy as np
 import pandas as pd
 import xarray
+import json
 
 from neuralhydrology.datasetzoo.basedataset import BaseDataset
 from neuralhydrology.utils.config import Config
@@ -71,17 +72,31 @@ class CYGNSSres(BaseDataset):
             scaler=scaler,
         )
 
+    def _grab_dam_name_from_cfg(self, basin: str) -> str:
+        if self.cfg.dam_basin_file:
+            basin_dam_dict = load_dam_basin_pairs(self.cfg.dam_basin_file)
+            dam_name = basin_dam_dict[basin]
+        elif self.cfg.dam_name:
+            dam_name = self.cfg.dam_name
+        else:
+            dam_name = ""
+        return dam_name
+
     def _load_basin_data(self, basin: str) -> pd.DataFrame:
         """Load input and output data."""
-        df = load_timeseries(
-            data_dir=self.cfg.data_dir, basin=basin, dam_name=self.cfg.dam_name
-        )
-
+        dam_name = self._grab_dam_name_from_cfg(basin=basin)
+        df = load_timeseries(data_dir=self.cfg.data_dir, basin=basin, dam_name=dam_name)
         return df
 
     def _load_attributes(self) -> pd.DataFrame:
         """Load static catchment attributes."""
         return load_attributes(self.cfg.data_dir, basins=self.basins)
+
+
+def load_dam_basin_pairs(dam_basin_fp: Path) -> dict:
+    with open(dam_basin_fp, "r") as fp:
+        pair_dict = json.load(fp)
+    return pair_dict
 
 
 def load_attributes(data_dir: Path, basins: List[str] = None) -> pd.DataFrame:
@@ -217,7 +232,9 @@ def load_timeseries(data_dir: Path, basin: str, dam_name: str) -> pd.DataFrame:
     basin_file = [f for f in netcdf_files if f.stem == stem_name]
     print(basin_file, flush=True)
     if len(basin_file) == 0:
-        raise FileNotFoundError(f"No file found with name {stem_name} in {netcdf_files}")
+        raise FileNotFoundError(
+            f"No file found with name {stem_name} in {netcdf_files}"
+        )
     if len(basin_file) > 1:
         raise ValueError(f"Multiple files found for basin {basin} in {files_dir}")
 
