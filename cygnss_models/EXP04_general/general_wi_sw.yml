@@ -2,7 +2,8 @@
 
 # experiment name, used as folder name
 experiment_name: EXP04_general_wi_sw
-dam_name: glen canyon
+
+dam_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP04_general/dam_basin_pair.json
 
 # Full or relative path to where the run directory is stored (if empty runs are stored in ${current_working_dir}/runs/)
 run_dir: /global/home/users/ann_scheliga/neuralhydrology/runs/
@@ -29,7 +30,7 @@ device: cpu
 validate_every: 3
 
 # specify how many random basins to use for validation
-validate_n_random_basins: 1
+validate_n_random_basins: 2
 
 # specify which metrics to calculate during validation (see neuralhydrology.evaluation.metrics)
 # this can either be a list or a dictionary. If a dictionary is used, the inner keys must match the name of the
