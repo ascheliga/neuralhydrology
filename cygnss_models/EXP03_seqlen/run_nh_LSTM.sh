@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=run_nh_LSTM_EXP03_multi_att01
+#SBATCH --job-name=run_nh_LSTM_EXP03_multi_270_att00
 #SBATCH --account=fc_ecohydrology
 #SBATCH --partition=savio2_htc
 #SBATCH --time=00:03:15
@@ -9,12 +9,14 @@
 eval "$(conda shell.bash hook)"
 conda activate neuralhydrology
 
-nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP03_seqlen/multi_basin/general_wi_sw_10.yml
-nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP03_seqlen/multi_basin/general_wi_sw_30.yml
-nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP03_seqlen/multi_basin/general_wi_sw_60.yml
-nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP03_seqlen/multi_basin/general_wi_sw_90.yml
+# nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP03_seqlen/multi_basin/general_wi_sw_10.yml
+# nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP03_seqlen/multi_basin/general_wi_sw_30.yml
+# nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP03_seqlen/multi_basin/general_wi_sw_60.yml
+# nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP03_seqlen/multi_basin/general_wi_sw_90.yml
+nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP03_seqlen/multi_basin/general_wi_sw_270.yml
 
-nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP03_seqlen/multi_basin/general_no_sw_10.yml
-nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP03_seqlen/multi_basin/general_no_sw_30.yml
-nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP03_seqlen/multi_basin/general_no_sw_60.yml
-nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP03_seqlen/multi_basin/general_no_sw_90.yml
+# nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP03_seqlen/multi_basin/general_no_sw_10.yml
+# nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP03_seqlen/multi_basin/general_no_sw_30.yml
+# nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP03_seqlen/multi_basin/general_no_sw_60.yml
+# nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP03_seqlen/multi_basin/general_no_sw_90.yml
+nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP03_seqlen/multi_basin/general_no_sw_270.yml
