@@ -1,0 +1,13 @@
+grdc_id: 5608096
+grdc_sub_ids: ## MUST BE ORDERED DOWNSTREAM (first) TO UPSTREAM (last)
+  - 5608095
+
+dam_name: "ord_river"
+start_year: 2000
+stop_year_ex: 2024
+basin_str: "ord"
+
+grdc_dir: "/global/scratch/users/ann_scheliga/aux_dam_datasets/GRDC_CRB/"
+met_dir: "/global/scratch/users/ann_scheliga/era5_data/"
+res_dir: "/global/scratch/users/ann_scheliga/CYGNSS_daily/time_series/"
+basin_data_dir: "/global/scratch/users/ann_scheliga/basin_forcing_processed/"
