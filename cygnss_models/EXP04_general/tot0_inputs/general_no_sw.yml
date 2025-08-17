@@ -1,7 +1,7 @@
 # --- Experiment configurations --------------------------------------------------------------------
 
 # experiment name, used as folder name
-experiment_name: EXP04_general_no_sw_tot0
+experiment_name: EXP04_general_no_sw_tot0_exmet
 
 dam_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP04_general/dam_basin_pair.json
 
@@ -134,8 +134,10 @@ dynamic_inputs:
   # - vp(Pa)_daymet
     # - SW_area
     # - SW_flag
-    - tempK_tot0
+    - max_tempK_tot0
+    - min_tempK_tot0
     - precipm_tot0
+    - dewpointK_tot0
 
 # Which CAMELS attributes to use. Leave empty if none should be used
 #static_attributes:
