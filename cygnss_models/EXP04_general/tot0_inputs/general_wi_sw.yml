@@ -1,7 +1,7 @@
 # --- Experiment configurations --------------------------------------------------------------------
 
 # experiment name, used as folder name
-experiment_name: EXP04_general_wi_sw_tot0_exmet
+experiment_name: EXP04_general_wi_sw_tot0_exmet_10year
 
 dam_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP04_general/dam_basin_pair.json
 
@@ -14,7 +14,7 @@ validation_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_mo
 test_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP04_general/2basin.txt
 
 # training, validation and test time periods (format = 'dd/mm/yyyy')
-train_start_date: "01/01/2019"
+train_start_date: "01/01/2010"
 train_end_date: "31/12/2020"
 validation_start_date: "01/01/2021"
 validation_end_date: "31/12/2021"
@@ -30,7 +30,7 @@ device: cpu
 validate_every: 3
 
 # specify how many random basins to use for validation
-validate_n_random_basins: 2
+validate_n_random_basins: 6
 
 # specify which metrics to calculate during validation (see neuralhydrology.evaluation.metrics)
 # this can either be a list or a dictionary. If a dictionary is used, the inner keys must match the name of the
