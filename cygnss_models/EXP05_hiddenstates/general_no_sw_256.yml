@@ -1,20 +1,20 @@
 # --- Experiment configurations --------------------------------------------------------------------
 
 # experiment name, used as folder name
-experiment_name: EXP05_general_wi_sw_256
+experiment_name: EXP05_hiddenstate_no_sw_256
 
-dam_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP05_hiddenstates/dam_basin_pair.json
+dam_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/dam_basin_pair.json
 
 # Full or relative path to where the run directory is stored (if empty runs are stored in ${current_working_dir}/runs/)
 run_dir: /global/home/users/ann_scheliga/neuralhydrology/runs/
 
 # files to specify training, validation and test basins (relative to code root or absolute path)
-train_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP05_hiddenstates/2basin.txt
-validation_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP05_hiddenstates/2basin.txt
-test_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP05_hiddenstates/2basin.txt
+train_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/6basin.txt
+validation_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/6basin.txt
+test_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/6basin.txt
 
 # training, validation and test time periods (format = 'dd/mm/yyyy')
-train_start_date: "01/01/2019"
+train_start_date: "01/01/2010"
 train_end_date: "31/12/2020"
 validation_start_date: "01/01/2021"
 validation_end_date: "31/12/2021"
@@ -30,7 +30,7 @@ device: cpu
 validate_every: 3
 
 # specify how many random basins to use for validation
-validate_n_random_basins: 2
+validate_n_random_basins: 6
 
 # specify which metrics to calculate during validation (see neuralhydrology.evaluation.metrics)
 # this can either be a list or a dictionary. If a dictionary is used, the inner keys must match the name of the
@@ -90,7 +90,7 @@ predict_last_n: 1
 
 # Length of the input sequence
 # If use_frequencies is used, this needs to be a dict mapping each frequency to a seq_length, else an int.
-seq_length: 270
+seq_length: 365
 
 # Number of parallel workers used in the data pipeline
 num_workers: 2
@@ -132,16 +132,19 @@ dynamic_inputs:
   # - tmax(C)_daymet
   # - tmin(C)_daymet
   # - vp(Pa)_daymet
-    - SW_area
-    - SW_flag
-    - tempK_tot0
+    # - SW_area
+    # - SW_flag
+    - max_tempK_tot0
+    - min_tempK_tot0
     - precipm_tot0
+    - dewpointK_tot0
 
 # Which CAMELS attributes to use. Leave empty if none should be used
-#static_attributes:
+static_attributes:
 #  - elev_mean
 #  - slope_mean
-#  - area_gages2
+ - area_calc
+ - p_mean
 
 # which columns to use as target
 target_variables:
