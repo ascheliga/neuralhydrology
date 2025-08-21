@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=run_nh_LSTM_EXP04_basin_attr_debug_att04
+#SBATCH --job-name=run_nh_LSTM_EXP04_basin_attr_att01
 #SBATCH --account=fc_ecohydrology
 #SBATCH --partition=savio2_htc
 #SBATCH --time=00:35:35
@@ -13,5 +13,5 @@ conda activate neuralhydrology
 # nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP04_general/ex_inputs/general_wi_sw.yml
 
 
-nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP04_general/tot0_inputs/general_no_sw.yml
+# nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP04_general/tot0_inputs/general_no_sw.yml
 nh-run train --config-file /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP04_general/tot0_inputs/general_wi_sw.yml

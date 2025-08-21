@@ -9,9 +9,9 @@ dam_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/da
 run_dir: /global/home/users/ann_scheliga/neuralhydrology/runs/
 
 # files to specify training, validation and test basins (relative to code root or absolute path)
-train_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP04_general/6basin.txt
-validation_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP04_general/6basin.txt
-test_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP04_general/6basin.txt
+train_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/6basin.txt
+validation_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/6basin.txt
+test_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/6basin.txt
 
 # training, validation and test time periods (format = 'dd/mm/yyyy')
 train_start_date: "01/01/2010"
