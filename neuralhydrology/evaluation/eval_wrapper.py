@@ -6,7 +6,7 @@ from neuralhydrology.evaluation import comp_plots
 from matplotlib import pyplot as plt
 
 
-def quick_eval(fp_wi_sw, fp_no_sw, run_dir, basin_key="") -> DataFrame:
+def quick_eval(fp_wi_sw, fp_no_sw, run_dir) -> tuple:
     sw_run_dir = Path(run_dir, fp_wi_sw)
     nosw_run_dir = Path(run_dir, fp_no_sw)
 
@@ -41,7 +41,16 @@ def quick_eval(fp_wi_sw, fp_no_sw, run_dir, basin_key="") -> DataFrame:
         print(nosw_test_results.keys())
 
     print("Loaded model results")
+    return sw_train_results, nosw_train_results, sw_test_results, nosw_test_results
 
+
+def quick_basin_plot(
+    sw_train_results,
+    nosw_train_results,
+    sw_test_results,
+    nosw_test_results,
+    basin_key="",
+) -> DataFrame:
     if len(basin_key) < 1:
         basin_key = list(sw_test_results.keys())[0]
         print("Plotting basin_key", basin_key)
