@@ -1,17 +1,17 @@
 # --- Experiment configurations --------------------------------------------------------------------
 
 # experiment name, used as folder name
-experiment_name: EXP04_general_no_sw_tot0_exmet_10year
+experiment_name: EXP04_general_no_sw
 
-dam_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP04_general/dam_basin_pair.json
+dam_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/dam_basin_pair.json
 
 # Full or relative path to where the run directory is stored (if empty runs are stored in ${current_working_dir}/runs/)
 run_dir: /global/home/users/ann_scheliga/neuralhydrology/runs/
 
 # files to specify training, validation and test basins (relative to code root or absolute path)
-train_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP04_general/2basin.txt
-validation_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP04_general/2basin.txt
-test_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP04_general/2basin.txt
+train_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/6basin.txt
+validation_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/6basin.txt
+test_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/6basin.txt
 
 # training, validation and test time periods (format = 'dd/mm/yyyy')
 train_start_date: "01/01/2010"
@@ -134,16 +134,17 @@ dynamic_inputs:
   # - vp(Pa)_daymet
     # - SW_area
     # - SW_flag
-    # - max_tempK_tot0
+    - max_tempK_tot0
     - min_tempK_tot0
     - precipm_tot0
-    # - dewpointK_tot0
+    - dewpointK_tot0
 
 # Which CAMELS attributes to use. Leave empty if none should be used
-#static_attributes:
+static_attributes:
 #  - elev_mean
 #  - slope_mean
-#  - area_gages2
+ - area_calc
+ - p_mean
 
 # which columns to use as target
 target_variables:
