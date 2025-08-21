@@ -11,7 +11,7 @@
 eval "$(conda shell.bash hook)"
 conda activate rioxarray_env
 
-export yml_file='colorado_full_basin.yml'
+export yml_file='ord_basin.yml'
 
 # pre-processing into DataFrame
 python LSTM_preprocessing.py
