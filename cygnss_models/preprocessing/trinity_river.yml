@@ -1,0 +1,12 @@
+grdc_id: 4150600
+grdc_sub_ids: ## MUST BE ORDERED DOWNSTREAM (first) TO UPSTREAM (last)
+
+dam_name: "livingston_dam"
+start_year: 2000
+stop_year_ex: 2024
+basin_str: "east_texas"
+
+grdc_dir: "/global/scratch/users/ann_scheliga/aux_dam_datasets/GRDC_CRB/"
+met_dir: "/global/scratch/users/ann_scheliga/era5_data/"
+res_dir: "/global/scratch/users/ann_scheliga/CYGNSS_daily/time_series/"
+basin_data_dir: "/global/scratch/users/ann_scheliga/basin_forcing_processed/"
