@@ -1,24 +1,25 @@
 # --- Experiment configurations --------------------------------------------------------------------
 
 # experiment name, used as folder name
-experiment_name: EXP00_niger_kainji_no_sw
-dam_name: kainji
+experiment_name: EXP00_wi_sw_MSE_10basin
+
+dam_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/dam_basin_pair.json
 
 # Full or relative path to where the run directory is stored (if empty runs are stored in ${current_working_dir}/runs/)
 run_dir: /global/home/users/ann_scheliga/neuralhydrology/runs/
 
 # files to specify training, validation and test basins (relative to code root or absolute path)
-train_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP00_1basin_sw/niger.txt
-validation_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP00_1basin_sw/niger.txt
-test_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP00_1basin_sw/niger.txt
+train_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/all_basins.txt
+validation_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/all_basins.txt
+test_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/all_basins.txt
 
 # training, validation and test time periods (format = 'dd/mm/yyyy')
-train_start_date: "01/01/2019"
-train_end_date: "31/12/2022"
-validation_start_date: "01/07/2023"
-validation_end_date: "31/12/2023"
-test_start_date: "01/01/2023"
-test_end_date: "30/06/2023"
+train_start_date: "01/01/2010"
+train_end_date: "31/12/2020"
+validation_start_date: "01/01/2021"
+validation_end_date: "31/12/2021"
+test_start_date: "01/01/2022"
+test_end_date: "31/12/2023"
 
 # which GPU (id) to use [in format of cuda:0, cuda:1 etc, or cpu, mps or None]
 device: cpu
@@ -29,7 +30,7 @@ device: cpu
 validate_every: 3
 
 # specify how many random basins to use for validation
-validate_n_random_basins: 1
+validate_n_random_basins: 10
 
 # specify which metrics to calculate during validation (see neuralhydrology.evaluation.metrics)
 # this can either be a list or a dictionary. If a dictionary is used, the inner keys must match the name of the
@@ -66,7 +67,7 @@ output_dropout: 0.4
 optimizer: Adam
 
 # specify loss [MSE, NSE, RMSE]
-loss: NSE
+loss: MSE
 
 # specify learning rates to use starting at specific epochs (0 is the initial learning rate)
 learning_rate:
@@ -131,15 +132,19 @@ dynamic_inputs:
   # - tmax(C)_daymet
   # - tmin(C)_daymet
   # - vp(Pa)_daymet
-    # - SW_area
-    - tempK_tot0
+    - SW_area
+    - SW_flag
+    - max_tempK_tot0
+    - min_tempK_tot0
     - precipm_tot0
+    - dewpointK_tot0
 
 # Which CAMELS attributes to use. Leave empty if none should be used
-#static_attributes:
+static_attributes:
 #  - elev_mean
 #  - slope_mean
-#  - area_gages2
+ - area_calc
+ - p_mean
 
 # which columns to use as target
 target_variables:
