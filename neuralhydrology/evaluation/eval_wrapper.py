@@ -1,5 +1,6 @@
 from pandas import DataFrame
 from pathlib import Path
+import os
 import pickle
 from neuralhydrology.nh_run import eval_run
 from neuralhydrology.evaluation import comp_plots
@@ -11,15 +12,22 @@ def quick_eval(fp_wi_sw, fp_no_sw, run_dir) -> tuple:
     nosw_run_dir = Path(run_dir, fp_no_sw)
 
     print(sw_run_dir)
-    eval_run(run_dir=sw_run_dir, period="test")
-    eval_run(run_dir=sw_run_dir, period="train")
-    eval_run(run_dir=sw_run_dir, period="validation")
+
+    if not os.path.exists(sw_run_dir / "test" / "model_epoch050"):
+        eval_run(run_dir=sw_run_dir, period="test")
+    if not os.path.exists(sw_run_dir / "train" / "model_epoch050"):
+        eval_run(run_dir=sw_run_dir, period="train")
+    if not os.path.exists(sw_run_dir / "validation" / "model_epoch050"):
+        eval_run(run_dir=sw_run_dir, period="validation")
     print("Evaluation complete of", sw_run_dir)
 
     print(nosw_run_dir)
-    eval_run(run_dir=nosw_run_dir, period="test")
-    eval_run(run_dir=nosw_run_dir, period="train")
-    eval_run(run_dir=nosw_run_dir, period="validation")
+    if not os.path.exists(nosw_run_dir / "test" / "model_epoch050"):
+        eval_run(run_dir=nosw_run_dir, period="test")
+    if not os.path.exists(nosw_run_dir / "train" / "model_epoch050"):
+        eval_run(run_dir=nosw_run_dir, period="train")
+    if not os.path.exists(nosw_run_dir / "validation" / "model_epoch050"):
+        eval_run(run_dir=nosw_run_dir, period="validation")
     print("Evaluation complete of", nosw_run_dir)
 
     with open(sw_run_dir / "train" / "model_epoch050" / "train_results.p", "rb") as fp:
@@ -42,6 +50,16 @@ def quick_eval(fp_wi_sw, fp_no_sw, run_dir) -> tuple:
 
     print("Loaded model results")
     return sw_train_results, nosw_train_results, sw_test_results, nosw_test_results
+
+
+def runs_to_nse_df(metrics_tuple: tuple, tuple_names: list = []) -> DataFrame:
+    list_of_lists = [None] * len(metrics_tuple)
+    for idx, run in enumerate(metrics_tuple):
+        list_of_lists[idx] = {key: run[key]["1D"]["NSE"] for key in run}
+    metrics_df = DataFrame(list_of_lists)
+    if tuple_names:
+        metrics_df.index = tuple_names
+    return metrics_df
 
 
 def quick_basin_plot(

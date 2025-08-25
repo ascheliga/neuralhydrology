@@ -1,4 +1,4 @@
-from neuralhydrology.evaluation import metrics
+from neuralhydrology.evaluation import metrics, eval_wrapper
 
 
 def plot_obs_sim_timeseries(ax, nh_dict, period=""):
@@ -14,3 +14,12 @@ def plot_obs_sim_timeseries(ax, nh_dict, period=""):
     )
 
     return values
+
+
+def boxplot_from_tuple(metrics_tuple, ax, tuple_names=[], exp_name=[]):
+    nse_df = eval_wrapper.runs_to_nse_df(metrics_tuple, tuple_names)
+    nse_df.T.boxplot(ax=ax)
+    ax.set_title(exp_name)
+    ax.axhline(c="gray")
+    ax.set_ylabel("NSE")
+    return nse_df
