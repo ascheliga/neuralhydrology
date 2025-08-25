@@ -1,7 +1,7 @@
 # --- Experiment configurations --------------------------------------------------------------------
 
 # experiment name, used as folder name
-experiment_name: EXP03_seqlen_wi_sw_270
+experiment_name: EXP03_seqlen_wi_sw_270_10basins
 
 dam_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/dam_basin_pair.json
 
@@ -9,9 +9,9 @@ dam_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/da
 run_dir: /global/home/users/ann_scheliga/neuralhydrology/runs/
 
 # files to specify training, validation and test basins (relative to code root or absolute path)
-train_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/6basin.txt
-validation_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/6basin.txt
-test_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/6basin.txt
+train_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/all_basins.txt
+validation_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/all_basins.txt
+test_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/all_basins.txt
 
 # training, validation and test time periods (format = 'dd/mm/yyyy')
 train_start_date: "01/01/2010"
@@ -30,7 +30,7 @@ device: cpu
 validate_every: 3
 
 # specify how many random basins to use for validation
-validate_n_random_basins: 6
+validate_n_random_basins: 10
 
 # specify which metrics to calculate during validation (see neuralhydrology.evaluation.metrics)
 # this can either be a list or a dictionary. If a dictionary is used, the inner keys must match the name of the
