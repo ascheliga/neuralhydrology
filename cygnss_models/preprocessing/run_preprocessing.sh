@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=saluda_att00
+#SBATCH --job-name=powell_att00
 #SBATCH --account=fc_ecohydrology
 #SBATCH --partition=savio2_htc
 #SBATCH --time=01:45:30
@@ -11,7 +11,7 @@
 eval "$(conda shell.bash hook)"
 conda activate rioxarray_env
 
-export yml_file='saluda_river.yml'
+export yml_file='colorado_powell.yml'
 
 # pre-processing into DataFrame
 python LSTM_preprocessing.py
