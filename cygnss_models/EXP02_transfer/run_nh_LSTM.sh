@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH --job-name=run_nh_LSTM_EXP02_10basin_debug_att02
+#SBATCH --job-name=run_nh_LSTM_EXP02_10basin_att01
 #SBATCH --account=fc_ecohydrology
 #SBATCH --partition=savio2_htc
-#SBATCH --time=00:04:15
+#SBATCH --time=03:04:15
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=2
 
