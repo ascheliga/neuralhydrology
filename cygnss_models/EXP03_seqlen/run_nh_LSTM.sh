@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=run_nh_LSTM_EXP03_multi_10basins_att00
+#SBATCH --job-name=run_nh_LSTM_EXP03_multi_att00
 #SBATCH --account=fc_ecohydrology
 #SBATCH --partition=savio2_htc
 #SBATCH --time=03:03:15
