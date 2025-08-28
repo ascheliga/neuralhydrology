@@ -1,7 +1,7 @@
 # --- Experiment configurations --------------------------------------------------------------------
 
 # experiment name, used as folder name
-experiment_name: EXP02_no_sw_transfer_10yrtr_1yrval_10basin
+experiment_name: EXP02_no_sw_transfer_10yrtr_1yrval
 
 dam_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/dam_basin_pair.json
 
