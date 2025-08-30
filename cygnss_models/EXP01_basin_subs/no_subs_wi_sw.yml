@@ -1,24 +1,26 @@
 # --- Experiment configurations --------------------------------------------------------------------
 
 # experiment name, used as folder name
-experiment_name: EXP01_cbr_no_sw_3ex_areas
-dam_name: glen_canyon
+experiment_name: EXP01_no_subs_wi_sw
+
+dam_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/dam_basin_pair.json
 
 # Full or relative path to where the run directory is stored (if empty runs are stored in ${current_working_dir}/runs/)
 run_dir: /global/home/users/ann_scheliga/neuralhydrology/runs/
 
 # files to specify training, validation and test basins (relative to code root or absolute path)
-train_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP01_1basin_subs/mead.txt
-validation_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP01_1basin_subs/mead.txt
-test_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP01_1basin_subs/mead.txt
+train_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP01_basin_subs/basins_wi_subs.txt
+validation_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP01_basin_subs/basins_wi_subs.txt
+test_basin_file: /global/home/users/ann_scheliga/neuralhydrology/cygnss_models/EXP01_basin_subs/basins_wi_subs.txt
 
 # training, validation and test time periods (format = 'dd/mm/yyyy')
-train_start_date: "01/01/2019"
-train_end_date: "31/12/2022"
-validation_start_date: "01/07/2023"
-validation_end_date: "31/12/2023"
-test_start_date: "01/01/2023"
-test_end_date: "30/06/2023"
+train_start_date: "01/01/2010"
+train_end_date: "31/12/2020"
+validation_start_date: "01/01/2021"
+validation_end_date: "31/12/2021"
+test_start_date: "01/01/2022"
+test_end_date: "31/12/2023"
+
 
 # which GPU (id) to use [in format of cuda:0, cuda:1 etc, or cpu, mps or None]
 device: cpu
@@ -131,19 +133,19 @@ dynamic_inputs:
   # - tmax(C)_daymet
   # - tmin(C)_daymet
   # - vp(Pa)_daymet
-    # - SW_area
-    - tempK_ex0
-    - precipm_ex0
-    - tempK_ex1
-    - precipm_ex1
-    - tempK_ex2
-    - precipm_ex2
+    - SW_area
+    - SW_flag
+    - max_tempK_tot0
+    - min_tempK_tot0
+    - precipm_tot0
+    - dewpointK_tot0
 
 # Which CAMELS attributes to use. Leave empty if none should be used
-#static_attributes:
+static_attributes:
 #  - elev_mean
 #  - slope_mean
-#  - area_gages2
+ - area_calc
+ - p_mean
 
 # which columns to use as target
 target_variables:
