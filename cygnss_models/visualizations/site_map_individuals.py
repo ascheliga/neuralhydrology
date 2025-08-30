@@ -69,7 +69,7 @@ stations_points = site_stations.set_geometry('lat_lon', crs = "EPSG:4326")
 
 cmap_colors = colormaps['tab20'].colors
 
-basin_green = cmap_colors[5]
+basin_green = (*cmap_colors[5],0.7)
 res_blue = cmap_colors[0]
 station_orange = cmap_colors[6]
 
@@ -77,24 +77,30 @@ station_orange = cmap_colors[6]
 # In[ ]:
 
 
-fig = plt.figure(figsize=(10, 25))
+fig = plt.figure(figsize=(18, 15))
 
 for idx in range(len(site_stations)):
-    ax = fig.add_subplot(5,2,idx+1)
+    if idx < 8:
+        sub_pos = idx+1
+    else:
+        sub_pos= idx+2
+    ax = fig.add_subplot(3,4,sub_pos)
 
     basin_bbox = site_stations.iloc[[idx],:].bounds.values[0]
-    ax.set_xlim([basin_bbox[0]-1.5,basin_bbox[2]+1.5])
-    ax.set_ylim([basin_bbox[1]-1.5,basin_bbox[3]+1.5])
+    x_span = basin_bbox[2] - basin_bbox[0]
+    y_span = basin_bbox[3] - basin_bbox[1]
+    ax.set_xlim([basin_bbox[0]-x_span*0.35,basin_bbox[2]+x_span*0.35])
+    ax.set_ylim([basin_bbox[1]-y_span*0.6,basin_bbox[3]+y_span*0.35])
 
     site_stations.iloc[[idx],:].plot(ax=ax,color=basin_green,edgecolor='black',linewidth=0.5)
     stations_points.iloc[[idx],:].plot(ax=ax,color=station_orange,edgecolor=station_orange,markersize=20)
     dam_shps.plot(ax=ax, color= res_blue)
 
     cx.add_basemap(ax,crs=site_stations.crs)
-    cx.add_basemap(ax,crs=site_stations.crs, source=cx.providers.CartoDB.PositronOnlyLabels,zoom=10)
+    # cx.add_basemap(ax,crs=site_stations.crs, source=cx.providers.CartoDB.PositronOnlyLabels,zoom=10)
     # set the plot title
     plt.title(site_stations.iloc[idx,:]['river'])
-plt.savefig('./panel_grdc_basin_map_test_labels.png')
+plt.savefig('./panel_grdc_basin_map_4by3_relbbox.png')
 
 
 # In[ ]:

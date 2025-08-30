@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=panel_map_background_att02
+#SBATCH --job-name=panel_map_background_att09
 #SBATCH --account=fc_ecohydrology
 #SBATCH --partition=savio2
 #SBATCH --time=00:15:30
