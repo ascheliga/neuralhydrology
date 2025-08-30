@@ -76,19 +76,18 @@ station_orange = cmap_colors[6]
 
 # In[ ]:
 
-
-fig = plt.figure(figsize=(18, 15))
+fig = plt.figure(figsize=(15,18))
 
 for idx in range(len(site_stations)):
-    if idx < 8:
+    if idx < 2:
         sub_pos = idx+1
     else:
         sub_pos= idx+2
-    ax = fig.add_subplot(3,4,sub_pos)
+    ax = fig.add_subplot(4,3,sub_pos)
 
     basin_bbox = site_stations.iloc[[idx],:].bounds.values[0]
-    x_span = basin_bbox[2] - basin_bbox[0]
-    y_span = basin_bbox[3] - basin_bbox[1]
+    x_span = max(basin_bbox[2] - basin_bbox[0],4)
+    y_span = max(basin_bbox[3] - basin_bbox[1],4)
     ax.set_xlim([basin_bbox[0]-x_span*0.35,basin_bbox[2]+x_span*0.35])
     ax.set_ylim([basin_bbox[1]-y_span*0.6,basin_bbox[3]+y_span*0.35])
 
@@ -100,7 +99,7 @@ for idx in range(len(site_stations)):
     # cx.add_basemap(ax,crs=site_stations.crs, source=cx.providers.CartoDB.PositronOnlyLabels,zoom=10)
     # set the plot title
     plt.title(site_stations.iloc[idx,:]['river'])
-plt.savefig('./panel_grdc_basin_map_4by3_relbbox.png')
+plt.savefig('./panel_grdc_basin_map_3by4.png')
 
 
 # In[ ]:
