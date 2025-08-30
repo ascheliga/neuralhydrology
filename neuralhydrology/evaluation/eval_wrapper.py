@@ -7,46 +7,33 @@ from neuralhydrology.evaluation import comp_plots
 from matplotlib import pyplot as plt
 
 
+def quick_single_eval(fn, run_dir) -> tuple:
+    fp = Path(run_dir, fn)
+
+    print(fp)
+
+    if not os.path.exists(fp / "test" / "model_epoch050"):
+        eval_run(run_dir=fp, period="test")
+    if not os.path.exists(fp / "train" / "model_epoch050"):
+        eval_run(run_dir=fp, period="train")
+    if not os.path.exists(fp / "validation" / "model_epoch050"):
+        eval_run(run_dir=fp, period="validation")
+    print("Evaluation complete of", fp)
+
+    with open(fp / "train" / "model_epoch050" / "train_results.p", "rb") as f:
+        train_results = pickle.load(f)
+        print(train_results.keys())
+
+    with open(fp / "test" / "model_epoch050" / "test_results.p", "rb") as f:
+        test_results = pickle.load(f)
+        print(test_results.keys())
+
+    return train_results, test_results
+
+
 def quick_eval(fp_wi_sw, fp_no_sw, run_dir) -> tuple:
-    sw_run_dir = Path(run_dir, fp_wi_sw)
-    nosw_run_dir = Path(run_dir, fp_no_sw)
-
-    print(sw_run_dir)
-
-    if not os.path.exists(sw_run_dir / "test" / "model_epoch050"):
-        eval_run(run_dir=sw_run_dir, period="test")
-    if not os.path.exists(sw_run_dir / "train" / "model_epoch050"):
-        eval_run(run_dir=sw_run_dir, period="train")
-    if not os.path.exists(sw_run_dir / "validation" / "model_epoch050"):
-        eval_run(run_dir=sw_run_dir, period="validation")
-    print("Evaluation complete of", sw_run_dir)
-
-    print(nosw_run_dir)
-    if not os.path.exists(nosw_run_dir / "test" / "model_epoch050"):
-        eval_run(run_dir=nosw_run_dir, period="test")
-    if not os.path.exists(nosw_run_dir / "train" / "model_epoch050"):
-        eval_run(run_dir=nosw_run_dir, period="train")
-    if not os.path.exists(nosw_run_dir / "validation" / "model_epoch050"):
-        eval_run(run_dir=nosw_run_dir, period="validation")
-    print("Evaluation complete of", nosw_run_dir)
-
-    with open(sw_run_dir / "train" / "model_epoch050" / "train_results.p", "rb") as fp:
-        sw_train_results = pickle.load(fp)
-        print(sw_train_results.keys())
-
-    with open(
-        nosw_run_dir / "train" / "model_epoch050" / "train_results.p", "rb"
-    ) as fp:
-        nosw_train_results = pickle.load(fp)
-        print(nosw_train_results.keys())
-
-    with open(sw_run_dir / "test" / "model_epoch050" / "test_results.p", "rb") as fp:
-        sw_test_results = pickle.load(fp)
-        print(sw_test_results.keys())
-
-    with open(nosw_run_dir / "test" / "model_epoch050" / "test_results.p", "rb") as fp:
-        nosw_test_results = pickle.load(fp)
-        print(nosw_test_results.keys())
+    sw_train_results, sw_test_results = quick_single_eval(fp_wi_sw, run_dir)
+    nosw_train_results, nosw_test_results = quick_single_eval(fp_no_sw, run_dir)
 
     print("Loaded model results")
     return sw_train_results, nosw_train_results, sw_test_results, nosw_test_results
@@ -93,3 +80,17 @@ def quick_basin_plot(
     metrics_df = DataFrame(value_dict)
 
     return metrics_df
+
+
+def check_exp_count(exp_runs):
+    "Count the occurrences of exp names."
+    exp_types = [exp_type[:-12] for exp_type in exp_runs]
+
+    exp_options = set(exp_types)
+
+    exp_count_dict = {}
+    for option in exp_options:
+        count = exp_types.count(option)
+        exp_count_dict[option] = count
+        print(option, ":\t", count)
+    return exp_count_dict
