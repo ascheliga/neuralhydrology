@@ -16,10 +16,12 @@ def plot_obs_sim_timeseries(ax, nh_dict, period=""):
     return values
 
 
-def boxplot_from_tuple(metrics_tuple, ax, tuple_names=[], exp_name=[]):
-    nse_df = eval_wrapper.runs_to_nse_df(metrics_tuple, tuple_names)
+def boxplot_from_tuple(
+    metrics_tuple, ax, tuple_names=[], exp_name=[], metric_name="NSE"
+):
+    nse_df = eval_wrapper.runs_to_nse_df(metrics_tuple, tuple_names, metric_name)
     nse_df.T.boxplot(ax=ax)
     ax.set_title(exp_name)
     ax.axhline(c="gray")
-    ax.set_ylabel("NSE")
+    ax.set_ylabel(metric_name)
     return nse_df

@@ -64,8 +64,9 @@ def ensemble_df_to_nh_dict(Qobs_df: pd.DataFrame, Qsim_df: pd.DataFrame) -> dict
     )
     Q_xr = Q_xr.rename_vars({"Qsim_mean": "Q_sim", "Qobs_mean": "Q_obs"})
 
+    rmse = metrics.mse(Q_xr["Q_obs"].isel(time_step=0), Q_xr["Q_sim"].isel(time_step=0))**(0.5)
     nse = metrics.nse(Q_xr["Q_obs"].isel(time_step=0), Q_xr["Q_sim"].isel(time_step=0))
-    nh_dict = {"1D": {"xr": Q_xr, "NSE": nse}}
+    nh_dict = {"1D": {"xr": Q_xr, "NSE": nse, "RMSE": rmse}}
     return nh_dict
 
 

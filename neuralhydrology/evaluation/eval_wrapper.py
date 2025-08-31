@@ -39,10 +39,12 @@ def quick_eval(fp_wi_sw, fp_no_sw, run_dir) -> tuple:
     return sw_train_results, nosw_train_results, sw_test_results, nosw_test_results
 
 
-def runs_to_nse_df(metrics_tuple: tuple, tuple_names: list = []) -> DataFrame:
+def runs_to_nse_df(
+    metrics_tuple: tuple, tuple_names: list = [], metric_name: str = "NSE"
+) -> DataFrame:
     list_of_lists = [None] * len(metrics_tuple)
     for idx, run in enumerate(metrics_tuple):
-        list_of_lists[idx] = {key: run[key]["1D"]["NSE"] for key in run}
+        list_of_lists[idx] = {key: run[key]["1D"][metric_name] for key in run}
     metrics_df = DataFrame(list_of_lists)
     if tuple_names:
         metrics_df.index = tuple_names
